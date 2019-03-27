@@ -5,14 +5,6 @@ export default class Square extends React.Component {
         return 0
     };
 
-    static get TYPE_HEAD() {
-        return 1
-    };
-
-    static get TYPE_TAIL() {
-        return 1
-    };
-
     static get TYPE_FOOD() {
         return 2
     };
@@ -44,19 +36,17 @@ export default class Square extends React.Component {
                 return (
                     <div className='box'></div>
                 );
-            case Square.TYPE_HEAD:
-                return (
-                    <div className='box active'></div>
-                );
-            case Square.TYPE_TAIL:
-                return (
-                    <div className='box active tail'></div>
-                );
             case Square.TYPE_FOOD:
                 return (
                     <div className='box active food'></div>
                 );
+            default:
+                if (this.state.type < 0) {
+                    return (
+                        <div className='box active'></div>
+                    );
+                }
+            break;
         }
-
     }
 }
