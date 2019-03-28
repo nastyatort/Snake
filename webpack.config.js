@@ -57,7 +57,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             inject: false,
             hash: true,
-            template: './src/template/index.html.ejs',
+            template: './src/index.html.ejs',
             filename: 'index.html'
         }),
         new ImageminPlugin({

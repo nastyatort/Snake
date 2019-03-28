@@ -35,3 +35,6 @@ button {
 
 .tail {
   background: red; }
+
+.flex {
+  display: flex; }
