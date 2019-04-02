@@ -27,6 +27,12 @@ button {
   display: flex;
   flex-wrap: wrap; }
 
+.game__over {
+  color: red; }
+
+.game__start {
+  color: green; }
+
 .square__wrapper {
   display: flex;
   flex-wrap: wrap;
