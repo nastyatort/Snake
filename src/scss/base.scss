@@ -31,10 +31,17 @@ button{
   }
 }
 
-.game__wrapper{
-  display: flex;
-  flex-wrap: wrap;
-
+.game{
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__over{
+    color: red;
+  }
+  &__start{
+    color: green;
+  }
 }
 
 .square__wrapper{
@@ -46,4 +53,8 @@ button{
 
 .tail{
   background: red;
+}
+
+.flex{
+  display: flex;
 }

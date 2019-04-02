@@ -1,5 +1,6 @@
 import React from "react";
 import {default as Square} from "./Square";
+import {default as Information} from "./Information";
 
 
 export default class Board extends React.Component{
@@ -16,7 +17,8 @@ export default class Board extends React.Component{
 
         this.state = {
             headIdx: 1,
-            tailIdx: 0
+            tailIdx: 0,
+            status: 0
         };
 
         const squareSize = 22;
@@ -74,7 +76,7 @@ export default class Board extends React.Component{
     moveTail() {
         let curTailValue = this.getSquareTypeAt(this.state.tailIdx);
 
-        var newTailIdx;
+        let newTailIdx;
 
         if (curTailValue -1 === this.getSquareTypeAt(this.state.tailIdx -1))
             newTailIdx = this.state.tailIdx -1;
@@ -96,13 +98,20 @@ export default class Board extends React.Component{
     test(e) {
 
         let newHeadIdx = this.state.headIdx;
+        let gameStatus = 0;
 
         switch (e.keyCode) {
             case 38: // up
                 if (this.state.headIdx >= this.width
                     && this.getSquareTypeAt(this.state.headIdx -this.width) >= 0) {
+                    let b = this.getSquareTypeAt(this.state.headIdx -this.width);
+                    console.log('type = ' + b);
                     newHeadIdx -= this.width;
                     /* console.log("new val "+ this.getSquareTypeAt(this.state.headIdx)) ;*/
+                }
+                else{
+                    gameStatus = 1;
+
                 }
                 break;
 
@@ -111,6 +120,9 @@ export default class Board extends React.Component{
                    && this.getSquareTypeAt(this.state.headIdx +this.width) >= 0) {
                     newHeadIdx += this.width;
                     /*   console.log("new val "+ this.getSquareTypeAt(this.state.headIdx)) ;*/
+                }
+                else{
+                    gameStatus = 1;
                 }
                 //console.log('Down '+ this.state.idx );
                 break;
@@ -121,16 +133,17 @@ export default class Board extends React.Component{
                     newHeadIdx--;
                     /*  console.log("new val "+ this.getSquareTypeAt(this.state.headIdx)) ;*/
                 }
+                else{
+                    gameStatus = 1;
+                }
                 break;
 
             case 39: // right
                 if ((this.state.headIdx % this.width) + 1 !== this.width
                     && this.getSquareTypeAt(this.state.headIdx +1) >=0) {
                     newHeadIdx++;
-                    /*   console.log("new val "+ this.getSquareTypeAt(this.state.headIdx)) ;*/
-                    /*    if(this.getSquareTypeAt(this.state.headIdx) === Square.TYPE_FOOD){
-                            this.setState({tailIdx: })
-                        }*/
+                }else{
+                    gameStatus = 1;
                 }
                 break;
         }
@@ -146,15 +159,18 @@ export default class Board extends React.Component{
                 this.moveTail();
 
             this.putBodySegmentAt( newHeadIdx );
+            console.log("new head is now at " + newHeadIdx);
 
             this.setState({headIdx: newHeadIdx});
         }
+        this.setState({status: gameStatus});
 
     }
 
     render(){
         return(
             <div>
+                <Information status={this.state.status}/>
                 <div className="square__wrapper" style={this.style}>
                     {this.board}
                 </div>
